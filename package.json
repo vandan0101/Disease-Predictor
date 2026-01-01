@@ -1,0 +1,26 @@
+{
+  "name": "ml-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "start": "concurrently \"npm run frontend\" \"npm run backend\" \"npm run ml\"",
+  "frontend": "cd frontend && npm start",
+  "backend": "cd backend && node server.js",
+  "ml": "cd ml_api && python3 app.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vandan0101/Disease-Predictor.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vandan0101/Disease-Predictor/issues"
+  },
+  "homepage": "https://github.com/vandan0101/Disease-Predictor#readme",
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
