@@ -1,40 +1,44 @@
+require("dotenv").config();
+
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
 
+const connectDB = require("./config/db");
+const authRoutes = require("./routes/auth");
+
 const app = express();
 
-// Middlewares
+/* ---------- DB CONNECT ---------- */
+connectDB();
+
+/* ---------- MIDDLEWARE ---------- */
 app.use(cors());
 app.use(express.json());
 
-// Health check
+/* ---------- HEALTH CHECK ---------- */
 app.get("/", (req, res) => {
   res.send("Backend is running");
 });
 
-// Predict route (Node → Flask)
+/* ---------- AUTH ROUTES ---------- */
+app.use("/api/auth", authRoutes);
+
+/* ---------- ML PREDICT ROUTE ---------- */
 app.post("/api/predict", async (req, res) => {
   try {
-    // Forward request to Flask ML API
     const response = await axios.post(
       "http://127.0.0.1:8000/predict",
       req.body
     );
-
-    // Send ML response back to client
     res.json(response.data);
-
   } catch (error) {
     console.error("ML API error:", error.response?.data || error.message);
-
-    res.status(500).json({
-      error: "Backend failed to get prediction from ML API"
-    });
+    res.status(500).json({ error: "ML prediction failed" });
   }
 });
 
-// Start backend server
+/* ---------- START SERVER ---------- */
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Backend running on http://localhost:${PORT}`);
