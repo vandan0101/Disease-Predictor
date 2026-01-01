@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./AuthPage.css";
 
 function AuthPage({ onLoginSuccess }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -10,10 +11,10 @@ function AuthPage({ onLoginSuccess }) {
   });
   const [error, setError] = useState("");
 
-  const handleChange = e =>
+  const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -41,9 +42,12 @@ function AuthPage({ onLoginSuccess }) {
   };
 
   return (
-    <div style={styles.page}>
-      <div style={styles.card}>
+    <div className="auth-bg">
+      <div className="auth-card">
         <h2>{isLogin ? "Login" : "Sign Up"}</h2>
+        <p className="subtitle">
+          Smart Disease Predictor
+        </p>
 
         <form onSubmit={handleSubmit}>
           {!isLogin && (
@@ -56,16 +60,16 @@ function AuthPage({ onLoginSuccess }) {
           )}
 
           <input
-            name="email"
             type="email"
+            name="email"
             placeholder="Email"
             onChange={handleChange}
             required
           />
 
           <input
-            name="password"
             type="password"
+            name="password"
             placeholder="Password"
             onChange={handleChange}
             required
@@ -76,9 +80,9 @@ function AuthPage({ onLoginSuccess }) {
           </button>
         </form>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="error">{error}</p>}
 
-        <p style={styles.toggle} onClick={() => setIsLogin(!isLogin)}>
+        <p className="toggle" onClick={() => setIsLogin(!isLogin)}>
           {isLogin
             ? "New user? Create an account"
             : "Already have an account? Login"}
@@ -87,27 +91,5 @@ function AuthPage({ onLoginSuccess }) {
     </div>
   );
 }
-
-const styles = {
-  page: {
-    minHeight: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    background: "#e3f2fd"
-  },
-  card: {
-    background: "#fff",
-    padding: "30px",
-    width: "350px",
-    borderRadius: "10px",
-    boxShadow: "0 8px 20px rgba(0,0,0,0.2)"
-  },
-  toggle: {
-    marginTop: "15px",
-    color: "#1976d2",
-    cursor: "pointer"
-  }
-};
 
 export default AuthPage;
