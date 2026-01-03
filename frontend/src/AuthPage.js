@@ -20,8 +20,8 @@ function AuthPage({ onLoginSuccess }) {
 
     try {
       const url = isLogin
-        ? "http://localhost:4000/api/auth/login"
-        : "http://localhost:4000/api/auth/signup";
+        ? "https://disease-predictor-aqki.onrender.com/api/auth/login"
+        : "hhttps://disease-predictor-aqki.onrender.com/api/auth/signup";
 
       const payload = isLogin
         ? { email: form.email, password: form.password }

@@ -41,7 +41,7 @@ function App() {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/predict",
+        "https://disease-predictor-aqki.onrender.com/api/predict",
         formData
       );
       setResult(response.data.top_predictions);
