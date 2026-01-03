@@ -29,14 +29,27 @@ app.post("/api/predict", async (req, res) => {
   try {
     const response = await axios.post(
       "https://disease-predictor-1-tqst.onrender.com/predict",
-      req.body
+      req.body,
+      {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        timeout: 20000
+      }
     );
+
     res.json(response.data);
+
   } catch (error) {
     console.error("ML API error:", error.response?.data || error.message);
-    res.status(500).json({ error: "ML prediction failed" });
+
+    res.status(500).json({
+      error: "Prediction failed",
+      details: error.response?.data || error.message
+    });
   }
 });
+
 
 /* ---------- START SERVER ---------- */
 const PORT = 4000;
